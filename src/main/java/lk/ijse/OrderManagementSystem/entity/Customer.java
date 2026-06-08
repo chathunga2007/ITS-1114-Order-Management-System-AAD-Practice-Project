@@ -16,6 +16,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
     private String customerName;
+    private String email;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Order> order;
