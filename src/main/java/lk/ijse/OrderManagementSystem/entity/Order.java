@@ -17,6 +17,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     private Date orderDate;
+    private double total;
 
     @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     private Customer customer;
