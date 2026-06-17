@@ -8,4 +8,5 @@ public interface ItemService {
     List<ItemDTO> getAllItems();
     ItemDTO getItemDetail(long id);
     void updateItem(ItemDTO itemDTO);
+    List<ItemDTO> filterItems(String itemName);
 }
