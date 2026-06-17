@@ -26,6 +26,7 @@ public class ItemServiceImpl implements ItemService {
 
             Item item1 = new Item();
             item1.setItemName(item.getItemName());
+            item1.setItemQTY(item.getItemQTY());
             item1.setItemPrice(item.getItemPrice());
 
             itemRepository.save(item1);
@@ -48,6 +49,7 @@ public class ItemServiceImpl implements ItemService {
                 ItemDTO itemDTO = new ItemDTO();
                 itemDTO.setItemId(item.getItemId());
                 itemDTO.setItemName(item.getItemName());
+                itemDTO.setItemQTY(item.getItemQTY());
                 itemDTO.setItemPrice(item.getItemPrice());
 
                 itemDTOList.add(itemDTO);
@@ -73,6 +75,7 @@ public class ItemServiceImpl implements ItemService {
             ItemDTO itemDTO = new ItemDTO();
             itemDTO.setItemId(item.getItemId());
             itemDTO.setItemName(item.getItemName());
+            itemDTO.setItemQTY(item.getItemQTY());
             itemDTO.setItemPrice(item.getItemPrice());
 
             return itemDTO;
@@ -94,12 +97,36 @@ public class ItemServiceImpl implements ItemService {
             }
             Item item = itemOptional.get();
             item.setItemName(itemDTO.getItemName());
+            item.setItemQTY(itemDTO.getItemQTY());
             item.setItemPrice(item.getItemPrice());
 
             itemRepository.save(item);
 
         }  catch (Exception e) {
             log.error("Error in updateItem: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public List<ItemDTO> filterItems(String itemName) {
+        log.info("Execute Method filterItems");
+        try {
+            List<ItemDTO> itemDTOList = new ArrayList<>();
+            List<Item> itemList = itemRepository.filterItems(itemName);
+
+            for (Item item : itemList) {
+                ItemDTO itemDTO = new ItemDTO();
+                itemDTO.setItemId(item.getItemId());
+                itemDTO.setItemName(item.getItemName());
+                itemDTO.setItemQTY(item.getItemQTY());
+                itemDTO.setItemPrice(item.getItemPrice());
+
+                itemDTOList.add(itemDTO);
+            }
+            return itemDTOList;
+        } catch (Exception e) {
+            log.error("Error in filterItems: {}", e.getMessage());
             throw e;
         }
     }
